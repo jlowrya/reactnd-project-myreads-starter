@@ -7,7 +7,7 @@ const optionValues = {
     "read": "Read",
     "none": "None"
 }
-
+//TODO: implement selected option is the current shelf that the book is on
 function ShelfChangeButton(props){
     return (
         <select>
