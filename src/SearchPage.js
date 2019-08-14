@@ -6,25 +6,24 @@ import {search} from './BooksAPI';
 class SearchPage extends Component{
   state = {
     query: '',
-    books: []
-  }
-
-  componentDidMount(){
-    search(this.state.query).then((books) => this.setState({
-      books
-    }))
+    books: [],
   }
 
   handleChange = (event) => {
-    this.setState({query: event.target.value});
+    const query =  event.target.value
+    this.setState({query})
+    search(query).then(searchBooks =>(
+      this.setState({
+        books: searchBooks,
+      })
+    ))
   }
 
   render(){
-    console.log(this.state.books)
      return (
        <div className="search-books">
-         <SearchBar query={this.state.query} handleChange={this.handleChange}/>\
-
+         <SearchBar query={this.state.query} handleChange={this.handleChange}/>
+         <SearchResults books={this.state.books} />
        </div>
      )
   }
