@@ -43,12 +43,20 @@ class BooksApp extends React.Component {
     update(book, shelf).then(() => {
     this.setState(currentState => {
       // get the location of the book
+      if(book.shelf===undefined){
+        return {
+          books: [
+            ... currentState.books,
+            Object.assign({}, book, { shelf })
+          ]
+        }
+      }
       const location = currentState.books.findIndex(toUpdate => toUpdate.id === book.id);
       if (location !== -1) {
         return {
           books: [
             ...currentState.books.slice(0, location),
-            Object.assign({}, currentState.books[location], { shelf }),
+            ,
             ...currentState.books.slice(location + 1)
           ]
         };
@@ -64,10 +72,9 @@ class BooksApp extends React.Component {
   }
 
   render(){
-    getAll().then(res => console.log(res))
     return(
       <div className="app">
-        {this.state.showSearchPage ? <SearchPage toggleSearchPage={this.toggleSearchPage} />:
+        {this.state.showSearchPage ? <SearchPage toggleSearchPage={this.toggleSearchPage} changeShelf={this.changeShelf}/>:
         <div>
             <BookCase shelves={shelfNames} books={this.state.books} changeShelf={this.changeShelf}/>
               <div className="open-search">

@@ -12,18 +12,20 @@ class SearchPage extends Component{
   handleChange = (event) => {
     const query =  event.target.value
     this.setState({query})
-    search(query).then(searchBooks =>(
+    search(query).then(searchBooks =>{
       this.setState({
         books: searchBooks,
       })
-    ))
+    }
+    )
   }
 
   render(){
+    console.log(this.state.books)
      return (
        <div className="search-books">
          <SearchBar query={this.state.query} handleChange={this.handleChange} toggleSearchPage={this.props.toggleSearchPage} />
-         <SearchResults books={this.state.books} />
+         <SearchResults books={this.state.books} changeShelf={this.props.changeShelf} />
        </div>
      )
   }
