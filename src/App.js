@@ -56,7 +56,7 @@ class BooksApp extends React.Component {
         return {
           books: [
             ...currentState.books.slice(0, location),
-            ,
+            Object.assign({}, currentState.books[location], { shelf }),
             ...currentState.books.slice(location + 1)
           ]
         };
