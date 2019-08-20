@@ -7,7 +7,7 @@ function BookCase(props){
       <div className="list-books-content">
         <div>
           {props.shelves.map(shelf => (
-            <BookShelf name={getShelfName(shelf)} books={props.books.filter((book)=>book.shelf===shelf)} />
+            <BookShelf changeShelf={props.changeShelf} name={getShelfName(shelf)} books={props.books.filter((book)=>book.shelf===shelf)} />
           ))}
         </div>
       </div>

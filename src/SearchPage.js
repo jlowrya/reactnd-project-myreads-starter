@@ -22,7 +22,7 @@ class SearchPage extends Component{
   render(){
      return (
        <div className="search-books">
-         <SearchBar query={this.state.query} handleChange={this.handleChange}/>
+         <SearchBar query={this.state.query} handleChange={this.handleChange} toggleSearchPage={this.props.toggleSearchPage} />
          <SearchResults books={this.state.books} />
        </div>
      )

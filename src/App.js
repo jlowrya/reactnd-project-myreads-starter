@@ -39,14 +39,42 @@ class BooksApp extends React.Component {
     }))
   }
 
-  changeShelf(){
+  changeShelf = (book, shelf) => {
+    update(book, shelf).then(() => {
+    this.setState(currentState => {
+      // get the location of the book
+      const location = currentState.books.findIndex(toUpdate => toUpdate.id === book.id);
+      if (location !== -1) {
+        return {
+          books: [
+            ...currentState.books.slice(0, location),
+            Object.assign({}, currentState.books[location], { shelf }),
+            ...currentState.books.slice(location + 1)
+          ]
+        };
+      }
+    });
+  });
+};
 
+  toggleSearchPage = () => {
+    this.setState({
+      showSearchPage: !this.state.showSearchPage
+    })
   }
 
   render(){
+    getAll().then(res => console.log(res))
     return(
-      <div>
-        <SearchPage ></SearchPage>
+      <div className="app">
+        {this.state.showSearchPage ? <SearchPage toggleSearchPage={this.toggleSearchPage} />:
+        <div>
+            <BookCase shelves={shelfNames} books={this.state.books} changeShelf={this.changeShelf}/>
+              <div className="open-search">
+                <button onClick={this.toggleSearchPage}>Add a book</button>
+              </div>
+            </div>
+        }
       </div>
       // <SearchPage />
     )
