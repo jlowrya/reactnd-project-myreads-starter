@@ -6,9 +6,10 @@ import Book from './Book';
 import Header from './Header'
 import BookShelf from './BookShelf'
 import BookCase from './BookCase';
-// import {books} from './TestData';
 import {getAll, get, update, search} from './BooksAPI'
 import SearchPage from './SearchPage'
+import MainPage from './MainPage'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 const optionValues = {
@@ -23,14 +24,7 @@ const shelfNames = ['currentlyReading', 'wantToRead', 'read']
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
     books: [],
-    showSearchPage: false
   }
 
   componentDidMount(){
@@ -39,8 +33,8 @@ class BooksApp extends React.Component {
     }))
   }
 
-  changeShelf = (book, shelf) => {
-    update(book, shelf).then(() => {
+changeShelf = (book, shelf) => {
+  update(book, shelf).then(() => {
     this.setState(currentState => {
       // get the location of the book
       if(book.shelf===undefined){
@@ -65,25 +59,25 @@ class BooksApp extends React.Component {
   });
 };
 
-  toggleSearchPage = () => {
-    this.setState({
-      showSearchPage: !this.state.showSearchPage
-    })
-  }
-
   render(){
     return(
+      <Router>
       <div className="app">
-        {this.state.showSearchPage ? <SearchPage toggleSearchPage={this.toggleSearchPage} changeShelf={this.changeShelf}/>:
-        <div>
-            <BookCase shelves={shelfNames} books={this.state.books} changeShelf={this.changeShelf}/>
-              <div className="open-search">
-                <button onClick={this.toggleSearchPage}>Add a book</button>
-              </div>
-            </div>
-        }
-      </div>
-      // <SearchPage />
+      <Route exact path='/' render={() => (
+          <MainPage shelves={shelfNames} books={this.state.books} changeShelf={this.changeShelf} />
+        )} />
+      <Route path='/search' render={({ history }) => (
+          <SearchPage
+            toggleSearchPage={this.toggleSearchPage}
+            changeShelf={(book, shelf) => {
+                this.changeShelf(book, shelf)
+                history.push('/')
+              }
+            }
+          />
+        )}/>
+    </div>
+    </Router>
     )
   }
 
