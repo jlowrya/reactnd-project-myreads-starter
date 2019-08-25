@@ -35,8 +35,11 @@ class SearchPage extends Component{
 }
 
 function assignShelves(searchBooks, booksWithShelves){
+  if(searchBooks===undefined || searchBooks.length===0){
+    return
+  }
   for(const book of searchBooks){
-    const index = booksWithShelves.findIndex((arg)=> arg[0]==book.id)
+    const index = booksWithShelves.findIndex((arg)=> arg[0]===book.id)
     if(index > -1){
       book.shelf = booksWithShelves[index][1]
     }

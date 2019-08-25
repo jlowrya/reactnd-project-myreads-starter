@@ -10,7 +10,7 @@ function SearchResults(props){
       <div className="search-books-results">
         <ol className="books-grid">
           {!Array.isArray(props.books) ? <br/> : props.books.map(book => (
-            <Book book={book} changeShelf={props.changeShelf}/>
+            <Book key={book.id} book={book} changeShelf={props.changeShelf}/>
           ))}
         </ol>
       </div>
