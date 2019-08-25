@@ -12,6 +12,7 @@ class SearchPage extends Component{
   handleChange = (event) => {
     const query =  event.target.value
     this.setState({query})
+    query==='' ? this.setState({books:[]}) :
     search(query).then(searchBooks =>{
       this.setState({
         books: searchBooks,
