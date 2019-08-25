@@ -22,25 +22,21 @@ class BooksApp extends React.Component {
 changeShelf = (book, shelf) => {
   update(book, shelf).then(() => {
     this.setState(currentState => {
-      // get the location of the book
+      book.shelf = shelf
       if(book.shelf===undefined){
         return {
           books: [
             ...currentState.books,
-            Object.assign({}, book, { shelf })
+            book
           ]
         }
       }
-      const location = currentState.books.findIndex(toUpdate => toUpdate.id === book.id);
-      if (location !== -1) {
         return {
           books: [
-            ...currentState.books.slice(0, location),
-            Object.assign({}, currentState.books[location], { shelf }),
-            ...currentState.books.slice(location + 1)
+            ...currentState.books.filter((b) => b.id!==book.id),
+            book
           ]
         };
-      }
     });
   });
 };
@@ -54,7 +50,7 @@ changeShelf = (book, shelf) => {
         )} />
       <Route path='/search' render={({ history }) => (
           <SearchPage
-            toggleSearchPage={this.toggleSearchPage}
+            books={this.state.books.map((book)=>[book.id, book.shelf])}
             changeShelf={(book, shelf) => {
                 this.changeShelf(book, shelf)
                 history.push('/')

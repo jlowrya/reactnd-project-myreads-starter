@@ -14,6 +14,8 @@ class SearchPage extends Component{
     this.setState({query})
     query==='' ? this.setState({books:[]}) :
     search(query).then(searchBooks =>{
+      assignShelves(searchBooks, this.props.books)
+      console.log('Search books', searchBooks)
       this.setState({
         books: searchBooks,
       })
@@ -29,6 +31,18 @@ class SearchPage extends Component{
          <SearchResults books={this.state.books} changeShelf={this.props.changeShelf} />
        </div>
      )
+  }
+}
+
+function assignShelves(searchBooks, booksWithShelves){
+  for(const book of searchBooks){
+    const index = booksWithShelves.findIndex((arg)=> arg[0]==book.id)
+    if(index > -1){
+      book.shelf = booksWithShelves[index][1]
+    }
+    else{
+      book.shelf = 'none'
+    }
   }
 }
 
