@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {update, getaAll} from './BooksAPI'
 import ShelfChangeButton from './ShelfChangeButton';
 
 class Book extends Component{
