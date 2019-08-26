@@ -11,9 +11,8 @@ const optionValues = {
 
 function ShelfChangeButton(props){
     return (
-        <select value={props.book.shelf} onChange={props.handleChange}>
+        <select value={props.book.shelf===undefined ? "none" : props.book.shelf} onChange={props.handleChange}>
             {Object.keys(optionValues).map((key) => (
-                  props.book.shelf===undefined ? <option key={key} value={key}>{optionValues[key]}</option> :
                    <option key={key} value={key}>{optionValues[key]}</option>
             ))}
         </select>

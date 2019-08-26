@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import './App.css';
-import {getAll, update} from './BooksAPI'
+import {getAll, update, search} from './BooksAPI'
 import SearchPage from './SearchPage'
 import MainPage from './MainPage'
 
@@ -20,27 +20,31 @@ class BooksApp extends React.Component {
     }))
   }
 
-changeShelf = (book, shelf) => {
-  update(book, shelf).then(() => {
-    this.setState(currentState => {
-      book.shelf = shelf
-      if(book.shelf===undefined){
-        return {
-          books: [
-            ...currentState.books,
-            book
-          ]
+  searchBooks = query => {
+    return search(query).then(books => books)
+  }
+
+  changeShelf = (book, shelf) => {
+    update(book, shelf).then(() => {
+      this.setState(currentState => {
+        book.shelf = shelf
+        if(book.shelf===undefined){
+          return {
+            books: [
+              ...currentState.books,
+              book
+            ]
+          }
         }
-      }
-        return {
-          books: [
-            ...currentState.books.filter((b) => b.id!==book.id),
-            book
-          ]
-        };
+          return {
+            books: [
+              ...currentState.books.filter((b) => b.id!==book.id),
+              book
+            ]
+          };
+      });
     });
-  });
-};
+  };
 
   render(){
     return(
@@ -51,7 +55,8 @@ changeShelf = (book, shelf) => {
         )} />
       <Route path='/search' render={({ history }) => (
           <SearchPage
-            books={this.state.books.map((book)=>[book.id, book.shelf])}
+            books={this.state.books}
+            onSearchBooks={this.searchBooks}
             changeShelf={(book, shelf) => {
                 this.changeShelf(book, shelf)
               }

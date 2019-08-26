@@ -8,7 +8,7 @@ function SearchInput(props){
       <DebounceInput
        type="text"
        placeholder={props.placeholder}
-       debounceTimeout={300}
+       debounceTimeout={200}
        onChange={props.handleChange}
       />
     </div>
@@ -16,7 +16,7 @@ function SearchInput(props){
 }
 
 SearchInput.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
   value: PropTypes.string
 }
 
