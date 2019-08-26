@@ -14,6 +14,12 @@ class SearchPage extends Component{
     this.setState({query})
     query==='' ? this.setState({books:[]}) :
     search(query).then(searchBooks =>{
+      //handle invalid search term
+      if(searchBooks instanceof Object){
+        this.setState({
+          books: [],
+        })
+      }
       assignShelves(searchBooks, this.props.books)
       console.log('Search books', searchBooks)
       this.setState({
@@ -35,7 +41,7 @@ class SearchPage extends Component{
 }
 
 function assignShelves(searchBooks, booksWithShelves){
-  if(searchBooks===undefined || searchBooks.length===0){
+  if(searchBooks===undefined || searchBooks instanceof Object || searchBooks.length===0){
     return
   }
   for(const book of searchBooks){
