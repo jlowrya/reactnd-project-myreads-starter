@@ -39,7 +39,7 @@ class SearchPage extends Component{
 }
 
 function assignShelves(searchBooks, booksWithShelves){
-  if(searchBooks===undefined || !Array.isArray(searchBooks) || searchBooks.length===0){
+  if(!Array.isArray(searchBooks) || searchBooks.length===0){
     return
   }
   for(const book of searchBooks){
