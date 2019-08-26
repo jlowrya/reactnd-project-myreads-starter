@@ -15,13 +15,12 @@ class SearchPage extends Component{
     query==='' ? this.setState({books:[]}) :
     search(query).then(searchBooks =>{
       //handle invalid search term
-      if(searchBooks instanceof Object){
+      if(!Array.isArray(searchBooks)){
         this.setState({
           books: [],
         })
       }
       assignShelves(searchBooks, this.props.books)
-      console.log('Search books', searchBooks)
       this.setState({
         books: searchBooks,
       })
@@ -30,7 +29,6 @@ class SearchPage extends Component{
   }
 
   render(){
-    console.log(this.state.books)
      return (
        <div className="search-books">
          <SearchBar query={this.state.query} handleChange={this.handleChange} toggleSearchPage={this.props.toggleSearchPage} />
@@ -41,17 +39,13 @@ class SearchPage extends Component{
 }
 
 function assignShelves(searchBooks, booksWithShelves){
-  if(searchBooks===undefined || searchBooks instanceof Object || searchBooks.length===0){
+  if(searchBooks===undefined || !Array.isArray(searchBooks) || searchBooks.length===0){
     return
   }
   for(const book of searchBooks){
-    const index = booksWithShelves.findIndex((arg)=> arg[0]===book.id)
-    if(index > -1){
-      book.shelf = booksWithShelves[index][1]
-    }
-    else{
-      book.shelf = 'none'
-    }
+    const sameBook = booksWithShelves.find((arg) => arg[0]===book.id)
+    console.log('sameBook', sameBook)
+    sameBook === undefined ? book.shelf = 'none' : book.shelf = sameBook.shelf
   }
 }
 
