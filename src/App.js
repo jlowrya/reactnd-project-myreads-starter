@@ -53,7 +53,6 @@ changeShelf = (book, shelf) => {
             books={this.state.books.map((book)=>[book.id, book.shelf])}
             changeShelf={(book, shelf) => {
                 this.changeShelf(book, shelf)
-                history.push('/')
               }
             }
           />
