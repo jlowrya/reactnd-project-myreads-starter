@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const optionValues = {
     "currentlyReading": "Currently Reading",
@@ -6,7 +7,8 @@ const optionValues = {
     "read": "Read",
     "none": "None"
 }
-//TODO: implement selected option is the current shelf that the book is on
+
+
 function ShelfChangeButton(props){
     return (
         <select value={props.book.shelf} onChange={props.handleChange}>
@@ -16,7 +18,11 @@ function ShelfChangeButton(props){
             ))}
         </select>
     )
+}
 
+ShelfChangeButton.propTypes = {
+  book: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired
 }
 
 export default ShelfChangeButton

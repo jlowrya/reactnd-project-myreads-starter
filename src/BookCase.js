@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import BookShelf from './BookShelf';
 
 function BookCase(props){
@@ -14,6 +16,12 @@ function BookCase(props){
     </div>
   )
 
+}
+
+BookCase.propTypes = {
+  shelves: PropTypes.array.isRequired,
+  books: PropTypes.array.isRequired,
+  changeShelf: PropTypes.func.isRequired
 }
 
 function getShelfName(shelfName){

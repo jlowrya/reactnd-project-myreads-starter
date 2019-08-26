@@ -1,10 +1,11 @@
-import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import React from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import './App.css';
 import {getAll, update} from './BooksAPI'
 import SearchPage from './SearchPage'
 import MainPage from './MainPage'
-import { BrowserRouter as Router, Route } from "react-router-dom";
+
 
 const shelfNames = ['currentlyReading', 'wantToRead', 'read']
 

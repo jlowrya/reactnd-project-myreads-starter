@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types'
+
 import Book from './Book';
 
 function SearchResults(props){
@@ -11,6 +13,11 @@ function SearchResults(props){
         </ol>
       </div>
     )
+}
+
+SearchResults.propTypes = {
+  books: PropTypes.array.isRequired,
+  changeShelf: PropTypes.func.isRequired
 }
 
 export default SearchResults

@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
 import ShelfChangeButton from './ShelfChangeButton';
 
 const noImage = {
@@ -33,6 +35,11 @@ class Book extends Component{
        </div>
      )
    }
+}
+
+Book.propTypes = {
+  book: PropTypes.object.isRequired,
+  changeShelf: PropTypes.func.isRequired
 }
 
 

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import {search} from './BooksAPI';
@@ -31,11 +33,16 @@ class SearchPage extends Component{
   render(){
      return (
        <div className="search-books">
-         <SearchBar query={this.state.query} handleChange={this.handleChange} toggleSearchPage={this.props.toggleSearchPage} />
+         <SearchBar query={this.state.query} handleChange={this.handleChange} />
          <SearchResults books={this.state.books} changeShelf={this.props.changeShelf} />
        </div>
      )
   }
+}
+
+SearchPage.propTypes = {
+  changShelf: PropTypes.func.isRequired,
+  books: PropTypes.array.isRequired,
 }
 
 function assignShelves(searchBooks, booksWithShelves){
