@@ -5,9 +5,19 @@ import { DebounceInput } from 'react-debounce-input';
 function SearchInput(props){
   return(
     <div className="search-books-input-wrapper">
-      <input type="text" placeholder="Search by title or author" onChange={props.handleChange} value={props.query}/>
+      <DebounceInput
+       type="text"
+       placeholder={props.placeholder}
+       debounceTimeout={300}
+       onChange={props.handleChange}
+      />
     </div>
   )
+}
+
+SearchInput.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string
 }
 
 export default SearchInput
