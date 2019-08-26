@@ -13,6 +13,7 @@ class SearchPage extends Component{
 
   handleChange = (event) => {
     const query =  event.target.value
+    console.log('query', query)
     this.setState({query})
     query==='' ? this.setState({books:[]}) :
     search(query).then(searchBooks =>{
@@ -41,7 +42,7 @@ class SearchPage extends Component{
 }
 
 SearchPage.propTypes = {
-  changShelf: PropTypes.func.isRequired,
+  changeShelf: PropTypes.func.isRequired,
   books: PropTypes.array.isRequired,
 }
 
